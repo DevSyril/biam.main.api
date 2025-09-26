@@ -1,0 +1,39 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::create('template_fields', function (Blueprint $table) {
+            $table->uuid('id')->default('uuid_generate_v4()')->primary();
+            $table->uuid('template_id');
+            $table->uuid('section_id')->nullable();
+            $table->uuid('field_id');
+            $table->integer('field_order');
+            $table->boolean('is_required')->nullable()->default(false);
+            $table->boolean('is_editable')->nullable()->default(true);
+            $table->string('legal_slug', 100)->nullable();
+            $table->jsonb('visibility_rules')->nullable()->default('{}');
+            $table->jsonb('validation_schema')->nullable()->default('{}');
+            $table->jsonb('conditional_logic')->nullable()->default('{}');
+            $table->timestampTz('created_at')->nullable()->useCurrent();
+
+            $table->unique(['template_id', 'field_order'], 'template_fields_template_id_field_order_key');
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('template_fields');
+    }
+};
