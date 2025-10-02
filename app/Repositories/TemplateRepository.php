@@ -8,8 +8,9 @@ use App\Models\Template;
 
 class TemplateRepository implements TemplateInterface
 {
-    
-    public function index(int $items = 10) {
+
+    public function index(int $items = 10)
+    {
 
         $templates = Template::paginate($items);
 
@@ -17,7 +18,8 @@ class TemplateRepository implements TemplateInterface
 
     }
 
-    public function store(array $data) {
+    public function store(array $data)
+    {
 
         $template = Template::create($data);
 
@@ -25,15 +27,15 @@ class TemplateRepository implements TemplateInterface
 
     }
 
-    public function show(string $id) {
-
+    public function show(string $id)
+    {
         $template = Template::findOrFail($id);
-
+        $template->load('template_sections');
         return $template;
-
     }
 
-    public function update(string $id, array $data) {
+    public function update(string $id, array $data)
+    {
 
         $template = Template::findOrFail($id);
         $template->update($data);
@@ -43,7 +45,8 @@ class TemplateRepository implements TemplateInterface
     }
 
 
-    public function destroy(string $id) {
+    public function destroy(string $id)
+    {
 
         $template = Template::findOrFail($id);
         $template->delete();
@@ -53,7 +56,8 @@ class TemplateRepository implements TemplateInterface
     }
 
 
-    public function getDocumentTemplates(string $documentId) {
+    public function getDocumentTemplates(string $documentId)
+    {
 
         $document = AvailableDocument::findOrFail($documentId);
         $templates = $document->templates();

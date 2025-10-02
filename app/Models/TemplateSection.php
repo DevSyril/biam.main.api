@@ -6,6 +6,7 @@
 
 namespace App\Models;
 
+use App\Traits\Traits\HasUuidPrimaryKey;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
@@ -31,12 +32,12 @@ use Illuminate\Database\Eloquent\Model;
  */
 class TemplateSection extends Model
 {
+	use HasUuidPrimaryKey;
 	protected $table = 'template_sections';
 	public $incrementing = false;
 
 	protected $casts = [
-		'id' => 'uuid',
-		'template_id' => 'uuid',
+		'template_id' => 'string',
 		'section_order' => 'int',
 		'is_required' => 'bool',
 		'is_repeatable' => 'bool'
@@ -54,7 +55,7 @@ class TemplateSection extends Model
 
 	public function template()
 	{
-		return $this->belongsTo(Template::class);
+		return $this->belongsTo(Template::class, 'template_id');
 	}
 
 	public function template_fields()

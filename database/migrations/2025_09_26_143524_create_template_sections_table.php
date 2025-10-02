@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('template_sections', function (Blueprint $table) {
             $table->uuid('id')->default('uuid_generate_v4()')->primary();
-            $table->uuid('template_id');
+            $table->uuid('template_id') ;
             $table->string('title');
             $table->text('description')->nullable();
             $table->integer('section_order');

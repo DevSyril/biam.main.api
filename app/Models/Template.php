@@ -6,6 +6,7 @@
 
 namespace App\Models;
 
+use App\Traits\Traits\HasUuidPrimaryKey;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
@@ -16,9 +17,9 @@ use Illuminate\Database\Eloquent\Model;
  * @property uuid $id
  * @property string $title
  * @property string|null $description
- * @property USER-DEFINED $category
- * @property USER-DEFINED $type
- * @property string $content
+ * @property string $category
+ * @property string $type
+ * @property \Psy\Util\Json $content
  * @property int|null $version
  * @property bool|null $is_premium
  * @property bool|null $is_active
@@ -45,22 +46,19 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Template extends Model
 {
+	use HasUuidPrimaryKey;
 	protected $table = 'templates';
 	public $incrementing = false;
 
 	protected $casts = [
-		'id' => 'uuid',
-		'category' => 'USER-DEFINED',
-		'type' => 'USER-DEFINED',
-		'content' => 'binary',
+		'category' => 'string',
+		'type' => 'string',
 		'version' => 'int',
 		'is_premium' => 'bool',
 		'is_active' => 'bool',
 		'is_public' => 'bool',
-		'author_id' => 'uuid',
 		'estimated_time_minutes' => 'int',
 		'usage_count' => 'int',
-		'document_id' => 'uuid'
 	];
 
 	protected $fillable = [
@@ -83,41 +81,41 @@ class Template extends Model
 
 	public function user()
 	{
-		return $this->belongsTo(User::class, 'author_id');
+		return $this->belongsTo(User::class, 'author_id')->get();
 	}
 
 	public function available_document()
 	{
-		return $this->belongsTo(AvailableDocument::class, 'document_id');
+		return $this->belongsTo(AvailableDocument::class, 'document_id')->get();
 	}
 
 	public function template_sections()
 	{
-		return $this->hasMany(TemplateSection::class);
+		return $this->hasMany(TemplateSection::class, 'template_id');
 	}
 
 	public function template_fields()
 	{
-		return $this->hasMany(TemplateField::class);
+		return $this->hasMany(TemplateField::class)->get();
 	}
 
 	public function generated_documents()
 	{
-		return $this->hasMany(GeneratedDocument::class);
+		return $this->hasMany(GeneratedDocument::class)->get();
 	}
 
 	public function tags()
 	{
-		return $this->belongsToMany(Tag::class, 'template_tags');
+		return $this->belongsToMany(Tag::class, 'template_tags')->get();
 	}
 
 	public function template_ratings()
 	{
-		return $this->hasMany(TemplateRating::class);
+		return $this->hasMany(TemplateRating::class, 'template_id')->get();
 	}
 
 	public function template_versions()
 	{
-		return $this->hasMany(TemplateVersion::class);
+		return $this->hasMany(TemplateVersion::class)->get();
 	}
 }

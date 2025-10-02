@@ -16,8 +16,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property uuid $id
  * @property string $name
  * @property string|null $description
- * @property USER-DEFINED $category
- * @property USER-DEFINED $type
+ * @property string $category
+ * @property string $type
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * 
@@ -32,9 +32,8 @@ class AvailableDocument extends Model
 	public $incrementing = false;
 
 	protected $casts = [
-		'id' => 'uuid',
-		'category' => 'USER-DEFINED',
-		'type' => 'USER-DEFINED'
+		'category' => 'string',
+		'type' => 'string'
 	];
 
 	protected $fillable = [
@@ -46,11 +45,11 @@ class AvailableDocument extends Model
 
 	public function templates()
 	{
-		return $this->hasMany(Template::class, 'document_id');
+		return $this->hasMany(Template::class, 'document_id')->get();
 	}
 
 	public function tags()
 	{
-		return $this->belongsToMany(Tag::class, 'available_document_tags');
+		return $this->belongsToMany(Tag::class, 'available_document_tags')->get();
 	}
 }

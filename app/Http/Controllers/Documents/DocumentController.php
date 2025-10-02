@@ -70,21 +70,11 @@ class DocumentController extends Controller
 
             DB::commit();
 
-            return response()->json([
-                'success' => true,
-                'data' => new DocumentsResources($document),
-                'message' => 'Document créé avec succès.'
-            ], 201);
+            return $this->successResponse(new DocumentsResources($document));
 
         } catch (\Throwable $th) {
 
-            DB::rollBack();
-
-            return response()->json([
-                'success' => false,
-                'message' => 'Echec de la création du document.',
-                'error' => $th->getMessage()
-            ], 500);
+            return $this->failed('Echec de la création du document.', 500);
 
         }
     }
@@ -98,11 +88,7 @@ class DocumentController extends Controller
 
             $document = $this->documentsRepository->getDocumentById($id);
 
-            return response()->json([
-                'success' => true,
-                'data' => new DocumentsResources($document),
-                'message' => 'Document récupéré avec succès.'
-            ], 200);
+            return $this->successResponse(new DocumentsResources($document));
 
         } catch (\Throwable $th) {
 
@@ -131,19 +117,11 @@ class DocumentController extends Controller
 
             $document = $this->documentsRepository->updateDocument($id, $data);
 
-            return response()->json([
-                'success' => true,
-                'data' => new DocumentsResources($document),
-                'message' => 'Document mis à jour avec succès.'
-            ], 200);
+            return $this->successResponse(new DocumentsResources($document));
 
         } catch (\Throwable $th) {
 
-            return response()->json([
-                'success' => false,
-                'message' => 'Echec de la mise à jour du document.',
-                'error' => $th->getMessage()
-            ], 500);
+            return $this->failed('Echec de la mise à jour du document.', 500);
 
         }
     }
@@ -157,19 +135,11 @@ class DocumentController extends Controller
 
             $this->documentsRepository->deleteDocument($id);
 
-            return response()->json([
-                'success' => true,
-                'data' => null,
-                'message' => 'Document supprimé avec succès.'
-            ], 200);
+            return $this->deleted('Document supprimé avec succès.');
 
         } catch (\Throwable $th) {
 
-            return response()->json([
-                'success' => false,
-                'message' => 'Echec de la suppression du document.',
-                'error' => $th->getMessage()
-            ], 500);
+            return $this->failed('Echec de la suppression du document.', 500);
 
         }
     }
@@ -184,11 +154,7 @@ class DocumentController extends Controller
 
         } catch (\Throwable $th) {
 
-            return response()->json([
-                'success' => false,
-                'message' => 'Echec de la récupération des documents par catégorie.',
-                'error' => $th->getMessage()
-            ], 500);
+            return $this->failed('Echec de la récupération des documents.', status: 500);
 
         }
     }
@@ -204,11 +170,7 @@ class DocumentController extends Controller
 
         } catch (\Throwable $th) {
 
-            return response()->json([
-                'success' => false,
-                'message' => 'Echec de la recherche des documents.',
-                'error' => $th->getMessage()
-            ], 500);
+            return $this->failed('Echec de la recherche des documents.', status: 500);
 
         }
     }

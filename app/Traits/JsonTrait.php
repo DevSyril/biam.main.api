@@ -80,4 +80,35 @@ trait JsonTrait
             'message' => "Un problème inattendue est surevenue. Veuillez réessayer plus tard!"
         ], 500);
     }
+
+
+    protected function success($ressourceCollectionClass, $data, $message = 'Données récupérées avec succès.', $status = 200): JsonResponse
+    {
+        return response()->json([
+            'success' => true,
+            'data' => $ressourceCollectionClass::collection($data),
+            'message' => $message
+        ], $status);
+    }
+
+
+    protected function failed($message, $status = 400): JsonResponse
+    {
+        DB::rollBack();
+        return response()->json([
+            'success' => false,
+            'message' => $message
+        ], $status);
+    }
+
+
+    protected function deleted($message = 'Données supprimées avec succès.') : JsonResponse
+    {
+        return response()->json([
+            'success' => true,
+            'message' => $message
+        ], 200);
+    }
+
+
 }
