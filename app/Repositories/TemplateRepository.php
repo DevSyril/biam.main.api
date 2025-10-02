@@ -31,6 +31,8 @@ class TemplateRepository implements TemplateInterface
     {
         $template = Template::findOrFail($id);
         $template->load('template_sections');
+        $template->template_sections->load('template_fields');
+        // $template->template_sections->template_fields->load('field');
         return $template;
     }
 

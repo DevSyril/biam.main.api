@@ -38,16 +38,12 @@ class TemplateField extends Model
 	public $timestamps = false;
 
 	protected $casts = [
-		'id' => 'uuid',
-		'template_id' => 'uuid',
-		'section_id' => 'uuid',
-		'field_id' => 'uuid',
+		'template_id' => 'string',
+		'section_id' => 'string',
+		'field_id' => 'string',
 		'field_order' => 'int',
 		'is_required' => 'bool',
 		'is_editable' => 'bool',
-		'visibility_rules' => 'binary',
-		'validation_schema' => 'binary',
-		'conditional_logic' => 'binary'
 	];
 
 	protected $fillable = [

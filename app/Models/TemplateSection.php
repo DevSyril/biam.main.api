@@ -50,7 +50,8 @@ class TemplateSection extends Model
 		'section_order',
 		'legal_slug',
 		'is_required',
-		'is_repeatable'
+		'is_repeatable',
+		'content'	
 	];
 
 	public function template()

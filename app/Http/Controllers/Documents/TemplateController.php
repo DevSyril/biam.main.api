@@ -68,7 +68,7 @@ class TemplateController extends Controller
     public function show(string $id)
     {
         try {
-            $template = $this->templateInterface->show($id);
+            $template = $this->templateRepository->show($id);
 
             return $this->successResponse(new TemplateResources($template), 'Template récupéré avec succès.', 200);
 
