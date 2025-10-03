@@ -6,8 +6,10 @@
 
 namespace App\Models;
 
+use App\Traits\Traits\HasUuidPrimaryKey;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -15,7 +17,7 @@ use Illuminate\Database\Eloquent\Model;
  * 
  * @property uuid $id
  * @property string $label
- * @property USER-DEFINED $type
+ * @property string $type
  * @property string|null $default_value
  * @property string|null $options
  * @property string|null $description
@@ -35,16 +37,17 @@ class FormField extends Model
 	protected $table = 'form_fields';
 	public $incrementing = false;
 
+	use HasUuids;
+
 	protected $casts = [
-		'id' => 'uuid',
-		'type' => 'USER-DEFINED',
-		'options' => 'binary',
-		'validation_rules' => 'binary',
+		'id' => 'string',
+		'default_value' => 'string',
+		'type' => 'string',
 		'is_active' => 'bool'
 	];
 
 	protected $fillable = [
-		'label',
+		'label',	
 		'type',
 		'default_value',
 		'options',

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Fields;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Fields\FieldCreateRequest;
+use App\Http\Requests\Fields\FieldUpdateteRequest;
 use App\Http\Resources\Fields\FieldResource;
 use App\Interfaces\FieldInterface;
 use App\Repositories\FieldRepository;
@@ -55,11 +57,17 @@ class FieldController extends Controller
     }
 
 
-    public function store(Request $request)
+    public function store(FieldCreateRequest $request)
     {
         $data = array_filter($request->all(), function ($value) {
             return $value !== null && $value !== '';
         });
+
+        if (isset($data['validation_rules']))
+            $data['validation_rules'] = json_encode($data['validation_rules']);
+
+        if (isset($data['options']))
+            $data['options'] = json_encode($data['options']);
 
         try {
 
@@ -74,11 +82,17 @@ class FieldController extends Controller
     }
 
 
-    public function update(Request $request, string $id)
+    public function update(FieldUpdateteRequest $request, string $id)
     {
         $data = array_filter($request->all(), function ($value) {
             return $value !== null && $value !== '';
         });
+
+        if (isset($data['validation_rules']))
+            $data['validation_rules'] = json_encode($data['validation_rules']);
+
+        if (isset($data['options']))
+            $data['options'] = json_encode($data['options']);
 
         try {
 

@@ -41,6 +41,8 @@ Route::prefix('app')->group(function () {
     Route::get('fields/show/{id}', [FieldController::class, 'show']);
     Route::post('fields/create', [FieldController::class, 'store']);
     Route::post('fields/update/{id}', [FieldController::class, 'update']);
+    Route::delete('fields/delete/{id}', [FieldController::class, 'destroy']);
+
 
 });
     
