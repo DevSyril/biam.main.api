@@ -4,6 +4,7 @@ use App\Http\Controllers\Documents\DocumentController;
 use App\Http\Controllers\Documents\TemplateController;
 use App\Http\Controllers\Documents\TemplateSectionController;
 use App\Http\Controllers\Fields\FieldController;
+use App\Http\Controllers\Fields\TemplateFieldController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -43,6 +44,13 @@ Route::prefix('app')->group(function () {
     Route::post('fields/update/{id}', [FieldController::class, 'update']);
     Route::delete('fields/delete/{id}', [FieldController::class, 'destroy']);
 
+    Route::get('fields/template-fields', [TemplateFieldController::class, 'index']);
+    Route::get('fields/template-fields/show/{id}', [TemplateFieldController::class, 'show']);
+    Route::post('fields/template-fields/create', [TemplateFieldController::class, 'store']);
+    Route::post('fields/template-fields/update/{id}', [TemplateFieldController::class, 'update']);
+    Route::delete('fields/template-fields/delete/{id}', [TemplateFieldController::class, 'destroy']);
+
+
 
 });
-    
+

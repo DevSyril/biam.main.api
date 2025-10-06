@@ -6,4 +6,5 @@ return [
     App\Providers\Documents\TemplateSectionServiceProvider::class,
     App\Providers\Documents\TemplateServiceProvider::class,
     App\Providers\Fields\FieldServiceProvider::class,
+    App\Providers\Fields\TemplateFieldServiceProvider::class,
 ];

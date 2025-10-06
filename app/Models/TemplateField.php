@@ -6,6 +6,7 @@
 
 namespace App\Models;
 
+use App\Traits\Traits\HasUuidPrimaryKey;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
@@ -36,6 +37,8 @@ class TemplateField extends Model
 	protected $table = 'template_fields';
 	public $incrementing = false;
 	public $timestamps = false;
+
+	use HasUuidPrimaryKey;
 
 	protected $casts = [
 		'template_id' => 'string',
