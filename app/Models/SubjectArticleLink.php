@@ -6,6 +6,7 @@
 
 namespace App\Models;
 
+use App\Traits\Traits\HasUuidPrimaryKey;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
@@ -31,10 +32,14 @@ class SubjectArticleLink extends Model
 	protected $table = 'subject_article_link';
 	public $incrementing = false;
 
+	protected $connection = 'pgsql_secondary';
+
+	use HasUuidPrimaryKey;
+
 	protected $casts = [
-		'id' => 'uuid',
-		'subject_id' => 'uuid',
-		'article_id' => 'uuid',
+		'id' => 'string',
+		'subject_id' => 'string',
+		'article_id' => 'string',
 		'relevance' => 'int'
 	];
 

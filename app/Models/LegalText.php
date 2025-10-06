@@ -6,6 +6,7 @@
 
 namespace App\Models;
 
+use App\Traits\Traits\HasUuidPrimaryKey;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
@@ -35,9 +36,12 @@ class LegalText extends Model
 {
 	protected $table = 'legal_text';
 	public $incrementing = false;
+	protected $connection = 'pgsql_secondary';
+	
+	use HasUuidPrimaryKey;
 
 	protected $casts = [
-		'id' => 'uuid',
+		'id' => 'string',
 		'promulgation_date' => 'datetime',
 		'abrogation_date' => 'datetime',
 		'is_in_force' => 'bool'

@@ -6,6 +6,7 @@
 
 namespace App\Models;
 
+use App\Traits\Traits\HasUuidPrimaryKey;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
@@ -33,10 +34,13 @@ class LegalSubject extends Model
 {
 	protected $table = 'legal_subject';
 	public $incrementing = false;
+	protected $connection = 'pgsql_secondary';
+
+	use HasUuidPrimaryKey;
 
 	protected $casts = [
-		'id' => 'uuid',
-		'parent_id' => 'uuid',
+		'id' => 'string',
+		'parent_id' => 'string',
 		'level' => 'int'
 	];
 

@@ -6,6 +6,7 @@
 
 namespace App\Models;
 
+use App\Traits\Traits\HasUuidPrimaryKey;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
@@ -36,10 +37,14 @@ class Article extends Model
 {
 	protected $table = 'article';
 	public $incrementing = false;
+	protected $connection = 'pgsql_secondary';
+
+
+	use HasUuidPrimaryKey;
 
 	protected $casts = [
-		'id' => 'uuid',
-		'legal_text_id' => 'uuid',
+		'id' => 'string',
+		'legal_text_id' => 'string',
 		'is_modified' => 'bool',
 		'is_abrogated' => 'bool',
 		'display_order' => 'int'

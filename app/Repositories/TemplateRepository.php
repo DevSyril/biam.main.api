@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Interfaces\TemplateInterface;
 use App\Models\AvailableDocument;
+use App\Models\LegalSubject;
 use App\Models\Template;
 
 class TemplateRepository implements TemplateInterface
@@ -34,7 +35,10 @@ class TemplateRepository implements TemplateInterface
         $template->template_sections->load('template_fields');
         $template->template_sections->each(function ($section) {
             $section->template_fields->load('form_field');
+            // $section->template_fields->legal_articles = $this->getSectionLegalSubjects($section->template_fields->legal_slug); 
+            $section->legal_basis = $this->getSectionLegalSubjects($section->legal_slug);
         });
+
         return $template;
     }
 
@@ -68,6 +72,19 @@ class TemplateRepository implements TemplateInterface
 
         return $templates;
 
+    }
+
+    public function getSectionLegalSubjects(string $slug)
+    {
+        $legal_subjects = LegalSubject::where('slug', $slug)->get();
+        $legal_articles = $legal_subjects->flatMap(function ($subject) {
+            return $subject->subject_article_links->map(function ($link) {
+                $article = $link->article;
+                $article->load('legal_text');
+                return $article;
+            });
+        });
+        return $legal_articles;
     }
 
 

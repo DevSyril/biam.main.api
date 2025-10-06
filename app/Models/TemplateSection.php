@@ -63,4 +63,6 @@ class TemplateSection extends Model
 	{
 		return $this->hasMany(TemplateField::class, 'section_id');
 	}
+
+	
 }
