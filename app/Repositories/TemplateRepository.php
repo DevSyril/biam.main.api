@@ -32,7 +32,9 @@ class TemplateRepository implements TemplateInterface
         $template = Template::findOrFail($id);
         $template->load('template_sections');
         $template->template_sections->load('template_fields');
-        // $template->template_sections->template_fields->load('field');
+        $template->template_sections->each(function ($section) {
+            $section->template_fields->load('form_field');
+        });
         return $template;
     }
 
