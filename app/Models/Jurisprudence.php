@@ -6,7 +6,9 @@
 
 namespace App\Models;
 
+use App\Traits\Traits\HasUuidPrimaryKey;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -28,13 +30,17 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Jurisprudence extends Model
 {
+
+	use HasUuidPrimaryKey;
+
 	protected $table = 'jurisprudence';
 	public $incrementing = false;
+	protected $connection = 'pgsql_secondary';
 
 	protected $casts = [
-		'id' => 'uuid',
-		'linked_article_id' => 'uuid',
-		'linked_subject_id' => 'uuid'
+		'id' => 'string',
+		'linked_article_id' => 'string',
+		'linked_subject_id' => 'string'
 	];
 
 	protected $fillable = [

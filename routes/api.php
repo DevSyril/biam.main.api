@@ -5,6 +5,8 @@ use App\Http\Controllers\Documents\TemplateController;
 use App\Http\Controllers\Documents\TemplateSectionController;
 use App\Http\Controllers\Fields\FieldController;
 use App\Http\Controllers\Fields\TemplateFieldController;
+use App\Http\Controllers\LegalContext\LEgalSubjectsController;
+use App\Http\Controllers\LegalContext\LegalTextController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -54,3 +56,19 @@ Route::prefix('app')->group(function () {
 
 });
 
+
+Route::prefix('legal')->group(function () {
+    Route::get('texts', [LegalTextController::class, 'index']);
+    Route::post('texts/create', [LegalTextController::class, 'store']);
+    Route::get('texts/show/{id}', [LegalTextController::class, 'show']);
+    Route::post('texts/update/{id}', [LegalTextController::class, 'update']);
+    Route::delete('texts/delete/{id}', [LegalTextController::class, 'destroy']);
+    Route::post('texts/abrogate/{id}', [LegalTextController::class, 'abrogate']);
+
+
+    Route::get('subjects', [LEgalSubjectsController::class, 'index']);
+    Route::post('subjects/create', [LEgalSubjectsController::class, 'store']);
+    Route::get('subjects/show/{id}', [LEgalSubjectsController::class, 'show']);
+    Route::post('subjects/update/{id}', [LEgalSubjectsController::class, 'update']);
+    Route::delete('subjects/delete/{id}', [LEgalSubjectsController::class, 'destroy']);
+});
