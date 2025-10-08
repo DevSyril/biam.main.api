@@ -5,6 +5,7 @@ use App\Http\Controllers\Documents\TemplateController;
 use App\Http\Controllers\Documents\TemplateSectionController;
 use App\Http\Controllers\Fields\FieldController;
 use App\Http\Controllers\Fields\TemplateFieldController;
+use App\Http\Controllers\LegalContext\ArticleController;
 use App\Http\Controllers\LegalContext\LEgalSubjectsController;
 use App\Http\Controllers\LegalContext\LegalTextController;
 use Illuminate\Http\Request;
@@ -71,4 +72,11 @@ Route::prefix('legal')->group(function () {
     Route::get('subjects/show/{id}', [LEgalSubjectsController::class, 'show']);
     Route::post('subjects/update/{id}', [LEgalSubjectsController::class, 'update']);
     Route::delete('subjects/delete/{id}', [LEgalSubjectsController::class, 'destroy']);
+
+
+    Route::get('articles', [ArticleController::class, 'index']);
+    Route::get('articles/show/{id}', [ArticleController::class, 'show']);
+    Route::post('articles/create', [ArticleController::class, 'store']);
+    Route::post('articles/update/{id}', [ArticleController::class, 'update']);
+    Route::delete('articles/delete/{id}', [ArticleController::class, 'destroy']);
 });

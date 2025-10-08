@@ -24,8 +24,8 @@ class LegalSubjectCreateRequest extends FormRequest
         return [
             'label' => 'required|string|max:255',
             'description' => 'nullable|string',
-            'slug' => 'required|string|max:255|unique:legal_subject,slug',
-            'parent_id' => 'nullable|uuid|exists:legal_subject,id',
+            'slug' => 'required|string|max:255|unique:pgsql_secondary.legal_subject,slug',
+            'parent_id' => 'nullable|uuid|exists:pgsql_secondary.legal_subject,id',
             'level' => 'nullable|integer|min:0',
         ];
     }
