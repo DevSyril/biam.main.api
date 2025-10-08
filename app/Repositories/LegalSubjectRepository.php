@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Interfaces\LegalSubjectInterface;
 use App\Models\LegalSubject;
+use App\Models\SubjectArticleLink;
 
 class LegalSubjectRepository implements LegalSubjectInterface
 {
@@ -36,4 +37,11 @@ class LegalSubjectRepository implements LegalSubjectInterface
         $item = LegalSubject::findOrFail($id);
         return $item->delete();
     }
+
+    public function linkArticleToSubject(array $data)
+    {
+        return SubjectArticleLink::create($data);
+    }
+
+
 }

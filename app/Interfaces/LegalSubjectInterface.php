@@ -9,5 +9,6 @@ interface LegalSubjectInterface
     public function show(string $id);
     public function update(string $id, array $data);
     public function destroy(string $id);
+    public function linkArticleToSubject(array $data);
 }
         

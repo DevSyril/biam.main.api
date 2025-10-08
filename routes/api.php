@@ -72,6 +72,7 @@ Route::prefix('legal')->group(function () {
     Route::get('subjects/show/{id}', [LEgalSubjectsController::class, 'show']);
     Route::post('subjects/update/{id}', [LEgalSubjectsController::class, 'update']);
     Route::delete('subjects/delete/{id}', [LEgalSubjectsController::class, 'destroy']);
+    Route::post('subjects/link-article-to-subject', [LEgalSubjectsController::class, 'linkArticleToSubject']);
 
 
     Route::get('articles', [ArticleController::class, 'index']);

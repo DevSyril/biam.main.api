@@ -20,7 +20,7 @@ class ArticleRepository implements ArticleInterface
     public function show(string $id)
     {
         $article = Article::findOrFail($id);
-        $article->load('legal_text', 'jurisprudences', 'subject_article_links.subject', 'text_modifications');
+        $article->load('legal_text', 'jurisprudences', 'subject_article_links', 'text_modifications');
         return $article;
     }
 
