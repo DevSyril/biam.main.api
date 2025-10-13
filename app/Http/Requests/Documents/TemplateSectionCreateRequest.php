@@ -29,7 +29,6 @@ class TemplateSectionCreateRequest extends FormRequest
             'is_required' => 'nullable|boolean',
             'is_repeatable' => 'nullable|boolean',
             'legal_slug' => 'nullable|string|max:100',
-            'content' => 'required'
         ];
     }
 
@@ -42,8 +41,6 @@ class TemplateSectionCreateRequest extends FormRequest
             'title.max' => 'Le titre de la section ne doit pas dépasser 255 caractères.',
             'title.unique' => 'Le titre de la section doit être unique.',
 
-            'description.string' => 'Le contenu de la section doit être une chaîne de caractères.',
-
             'template_id.required' => 'L\'ID du modèle est requis.',
             'template_id.exists' => 'Le modèle spécifié n\'existe pas.',
 
@@ -55,8 +52,6 @@ class TemplateSectionCreateRequest extends FormRequest
 
             'legal_slug.string' => 'Le slug légal doit être une chaîne de caractères.',
             'legal_slug.max' => 'Le slug légal ne doit pas dépasser 100 caractères.',   
-
-            'content.required' => 'Le contenu de la section est requis.',
 
         ];
     }

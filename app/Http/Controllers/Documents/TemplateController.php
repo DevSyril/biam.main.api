@@ -48,7 +48,8 @@ class TemplateController extends Controller
             return $value !== null && $value !== '';
         });
 
-        $data['content'] = json_encode($data['content']);
+        if (isset($data['content']))
+            $data['content'] = json_encode($data['content']);
 
         try {
 
@@ -124,7 +125,7 @@ class TemplateController extends Controller
 
             $templates = $this->templateRepository->getDocumentTemplates($documentId);
 
-            return $this->successResponse( $templates, 'Templates du document récupérés avec succès.', 200);    
+            return $this->successResponse($templates, 'Templates du document récupérés avec succès.', 200);
 
         } catch (\Throwable $th) {
 

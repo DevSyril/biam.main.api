@@ -8,4 +8,5 @@ return [
     App\Providers\Documents\TemplateServiceProvider::class,
     App\Providers\Fields\FieldServiceProvider::class,
     App\Providers\Fields\TemplateFieldServiceProvider::class,
+    App\Providers\JurisprudenceServiceProvider::class,
 ];

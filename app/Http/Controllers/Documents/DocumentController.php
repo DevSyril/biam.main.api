@@ -74,7 +74,7 @@ class DocumentController extends Controller
 
         } catch (\Throwable $th) {
 
-            return $this->failed('Echec de la création du document.', 500);
+            return $this->failed($th->getMessage(), 500);
 
         }
     }

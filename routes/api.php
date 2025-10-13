@@ -7,6 +7,7 @@ use App\Http\Controllers\Fields\FieldController;
 use App\Http\Controllers\Fields\TemplateFieldController;
 use App\Http\Controllers\LegalContext\ArticleController;
 use App\Http\Controllers\LegalContext\LEgalSubjectsController;
+use App\Http\Controllers\LegalContext\JurisprudenceController;
 use App\Http\Controllers\LegalContext\LegalTextController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -80,4 +81,10 @@ Route::prefix('legal')->group(function () {
     Route::post('articles/create', [ArticleController::class, 'store']);
     Route::post('articles/update/{id}', [ArticleController::class, 'update']);
     Route::delete('articles/delete/{id}', [ArticleController::class, 'destroy']);
+
+    Route::get('jurisprudences', [JurisprudenceController::class, 'index']);
+    Route::get('jurisprudences/show/{id}', [JurisprudenceController::class, 'show']);
+    Route::post('jurisprudences/create', [JurisprudenceController::class, 'store']);
+    Route::post('jurisprudences/update/{id}', [JurisprudenceController::class, 'update']);
+    Route::delete('jurisprudences/delete/{id}', [JurisprudenceController::class, 'destroy']);
 });
