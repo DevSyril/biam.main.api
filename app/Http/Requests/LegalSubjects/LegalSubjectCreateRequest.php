@@ -34,18 +34,18 @@ class LegalSubjectCreateRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'label.required' => 'Le champ label est obligatoire.',
-            'label.string' => 'Le champ label doit être une chaîne de caractères.',
-            'label.max' => 'Le champ label ne doit pas dépasser 255 caractères.',
-            'description.string' => 'Le champ description doit être une chaîne de caractères.',
-            'slug.required' => 'Le champ slug est obligatoire.',
-            'slug.string' => 'Le champ slug doit être une chaîne de caractères.',
-            'slug.max' => 'Le champ slug ne doit pas dépasser 255 caractères.',
-            'slug.unique' => 'Le champ slug doit être unique.',
-            'parent_id.uuid' => "Le champ parent_id doit être un UUID valide.",
-            'parent_id.exists' => "Le champ parent_id doit exister dans la table legal_subject.",
-            'level.integer' => "Le champ level doit être un entier.",
-            'level.min' => "Le champ level doit être au moins 0.",
+            'label.required' => 'Le label est obligatoire.',
+            'label.string' => 'Le label doit être une chaîne de caractères.',
+            'label.max' => 'Le label ne doit pas dépasser 255 caractères.',
+            'description.string' => 'La description doit être une chaîne de caractères.',
+            'slug.required' => 'Le slug est obligatoire.',
+            'slug.string' => 'Le slug doit être une chaîne de caractères.',
+            'slug.max' => 'Le slug ne doit pas dépasser 255 caractères.',
+            'slug.unique' => 'Il semblerait que ce slug existe déjà.',
+            'parent_id.uuid' => "Le  sujet parent doit être un UUID valide.",
+            'parent_id.exists' => "Le sujet parent sélectionné n'a pas été retrouvé.",
+            'level.integer' => "Le niveau d'importance doit être un entier.",
+            'level.min' => "Le niveau doit être au moins 0.",
         ];
     }
 
