@@ -26,7 +26,7 @@ class LegalSubjectCreateRequest extends FormRequest
             'description' => 'nullable|string',
             'slug' => 'required|string|max:255|unique:pgsql_secondary.legal_subject,slug',
             'parent_id' => 'nullable|uuid|exists:pgsql_secondary.legal_subject,id',
-            'level' => 'nullable|integer|min:0',
+            'level' => 'required|integer|min:1',
         ];
     }
 
@@ -45,7 +45,7 @@ class LegalSubjectCreateRequest extends FormRequest
             'parent_id.uuid' => "Le  sujet parent doit être un UUID valide.",
             'parent_id.exists' => "Le sujet parent sélectionné n'a pas été retrouvé.",
             'level.integer' => "Le niveau d'importance doit être un entier.",
-            'level.min' => "Le niveau doit être au moins 0.",
+            'level.min' => "Le niveau d'importance doit être égal ou supérieur à 0.",
         ];
     }
 

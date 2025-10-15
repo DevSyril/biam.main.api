@@ -7,8 +7,10 @@ use App\Http\Requests\LegalSubjects\LegalSubjectCreateRequest;
 use App\Http\Requests\LegalSubjects\LegalSubjectUpdateRequest;
 use App\Http\Resources\LegalSubjects\LegalSubjectResources;
 use App\Repositories\LegalSubjectRepository;
+use App\Rules\CustomRules\UniqueSubjectArticleCombination;
 use App\Traits\JsonTrait;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class LEgalSubjectsController extends Controller
 {
@@ -101,34 +103,47 @@ class LEgalSubjectsController extends Controller
         }
     }
 
+
     public function linkArticleToSubject(Request $request)
     {
         try {
-
             $data = $request->validate([
                 'subject_id' => 'required|uuid|exists:pgsql_secondary.legal_subject,id',
-                'article_id' => 'required|uuid|exists:pgsql_secondary.article,id',
+                'article_id' => [
+                    'required',
+                    'uuid',
+                    'exists:pgsql_secondary.article,id',
+                    Rule::unique('pgsql_secondary.subject_article_link')
+                        ->where('subject_id', $request->subject_id)
+                        ->where('article_id', $request->article_id)
+                ],
                 'relevance' => 'nullable|integer',
                 'context_commentary' => 'nullable|string',
                 'usage_example' => 'nullable|string',
             ], [
-                'subject_id.required' => 'The subject_id field is required.',
-                'subject_id.uuid' => 'The subject_id must be a valid UUID.',
-                'subject_id.exists' => 'The specified subject_id does not exist.',
-                'article_id.required' => 'The article_id field is required.',
-                'article_id.uuid' => 'The article_id must be a valid UUID.',
-                'article_id.exists' => 'The specified article_id does not exist.',
-                'relevance.integer' => 'The relevance must be an integer.',
+                // Messages pour subject_id
+                'subject_id.required' => 'Le champ subject_id est requis.',
+                'subject_id.uuid' => 'Le subject_id doit être un UUID valide.',
+                'subject_id.exists' => 'Le subject_id spécifié n\'existe pas.',
+
+                // Messages pour article_id
+                'article_id.required' => 'Le champ article_id est requis.',
+                'article_id.uuid' => 'L\'article_id doit être un UUID valide.',
+                'article_id.exists' => 'L\'article_id spécifié n\'existe pas.',
+                'article_id.unique' => 'Cet article est déjà lié à ce sujet.',
+
+                // Message pour relevance
+                'relevance.integer' => 'La pertinence doit être un nombre entier.',
             ]);
 
             $link = $this->legalSubjectRepository->linkArticleToSubject($data);
 
-            return $this->successResponse($link, 'Article linked to subject successfully', 200);
+            return $this->successResponse($link, 'Article lié au sujet avec succès', 201);
 
         } catch (\Throwable $th) {
 
             return $this->errorResponse($th->getMessage(), 500);
         }
-    }   
+    }
 
 }

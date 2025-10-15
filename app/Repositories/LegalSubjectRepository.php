@@ -10,7 +10,7 @@ class LegalSubjectRepository implements LegalSubjectInterface
 {
     public function index($items = 10)
     {
-        return LegalSubject::paginate($items);
+        return LegalSubject::paginate(40);
     }
 
     public function store(array $data)
@@ -20,8 +20,18 @@ class LegalSubjectRepository implements LegalSubjectInterface
 
     public function show(string $id)
     {
-        $legal_subject = LegalSubject::findOrFail($id);
-        $legal_subject->load('legal_subject', 'legal_subjects', 'subject_article_links', 'jurisprudences');
+        $legal_subject = LegalSubject::with([
+            'legal_subject',           // Parent
+            'legal_subjects',          // Enfants
+            'subject_article_links.article.legal_text',  // Articles liés avec leur texte légal
+            'jurisprudences'
+        ])->findOrFail($id);
+
+        // Récupérer les articles liés directement depuis les liens
+        $legal_subject->linked_articles = $legal_subject->subject_article_links->map(function ($link) {
+            return $link->article;
+        })->values();
+
         return $legal_subject;
     }
 
