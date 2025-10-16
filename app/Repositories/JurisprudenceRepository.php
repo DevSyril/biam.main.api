@@ -9,7 +9,9 @@ class JurisprudenceRepository implements JurisprudenceInterface
 {
     public function index($items = 10)
     {
-        return Jurisprudence::with(['article', 'legal_subject'])->paginate($items);
+        $jurispruddence = Jurisprudence::paginate($items);
+        $jurispruddence->load('legal_subject');
+        return $jurispruddence;
     }
 
     public function store(array $data)
@@ -19,7 +21,7 @@ class JurisprudenceRepository implements JurisprudenceInterface
 
     public function show(string $id)
     {
-        return Jurisprudence::with(['article', 'legal_subject'])->findOrFail($id);
+        return Jurisprudence::with(['legal_subject'])->findOrFail($id);
     }
 
     public function update(string $id, array $data)

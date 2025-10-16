@@ -24,10 +24,15 @@ class JurisprudenceController extends Controller
     {
         try {
             $items = request()->get('items', 10);
+
             $data = $this->jurisprudenceRepository->index($items);
+
             return $this->successResponseWithPaginate(JurisprudenceResource::class, $data);
+
         } catch (\Throwable $th) {
+
             return $this->errorResponse($th->getMessage(), 500);
+            
         }
     }
 
