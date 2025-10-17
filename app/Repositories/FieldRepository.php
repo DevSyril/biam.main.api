@@ -14,7 +14,11 @@ class FieldRepository implements FieldInterface
 
     public function show(string $id)
     {
-        return FormField::findOrFail($id);
+        $form_field = FormField::findOrFail($id);
+        $form_field->options = json_decode($form_field->options);
+        $form_field->validation_rules = json_decode($form_field->validation_rules);
+
+        return $form_field;
     }
 
     public function store(array $data)

@@ -41,8 +41,8 @@ class FormField extends Model
 
 	protected $casts = [
 		'id' => 'string',
-		'default_value' => 'string',
 		'type' => 'string',
+		'default_value' => 'string',
 		'is_active' => 'bool'
 	];
 

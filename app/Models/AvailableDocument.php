@@ -37,7 +37,7 @@ class AvailableDocument extends Model
 	];
 
 	protected $fillable = [
-		'name',
+		'name', 
 		'description',
 		'category',
 		'type'
