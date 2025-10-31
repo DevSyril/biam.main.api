@@ -14,11 +14,9 @@ class TemplateSectionController extends Controller
 {
 
     use JsonTrait;
-    private TemplateSectionInterface $templateSectionInterface;
     private TemplateSectionRepository $templateSectionRepository;
-    public function __construct(TemplateSectionInterface $templateSectionInterface, TemplateSectionRepository $templateSectionRepository)
+    public function __construct(TemplateSectionRepository $templateSectionRepository)
     {
-        $this->templateSectionInterface = $templateSectionInterface;
         $this->templateSectionRepository = $templateSectionRepository;
     }
 
@@ -27,7 +25,7 @@ class TemplateSectionController extends Controller
     {
         try {
 
-            $sections = $this->templateSectionInterface->index();
+            $sections = $this->templateSectionRepository->index();
             return $this->successResponse($sections, 'Template sections retrieved successfully');
 
         } catch (\Exception $e) {
@@ -40,7 +38,7 @@ class TemplateSectionController extends Controller
     {
         try {
 
-            $section = $this->templateSectionInterface->show($id);
+            $section = $this->templateSectionRepository->show($id);
             return $this->successResponse($section, 'Template section retrieved successfully');
 
         } catch (\Exception $e) {
@@ -60,7 +58,7 @@ class TemplateSectionController extends Controller
 
             $data['content'] = json_encode($data['content']);
 
-            $section = $this->templateSectionInterface->store($data);
+            $section = $this->templateSectionRepository->store($data);
             return $this->successResponse($section, 'Template section created successfully', 201);
 
         } catch (\Exception $e) {
@@ -80,7 +78,7 @@ class TemplateSectionController extends Controller
                 fn($value) => !is_null($value) && $value !== ''
             );
 
-            $section = $this->templateSectionInterface->update($id, $data);
+            $section = $this->templateSectionRepository->update($id, $data);
             return $this->successResponse($section, 'Template section updated successfully');
 
         } catch (\Exception $e) {
@@ -95,7 +93,7 @@ class TemplateSectionController extends Controller
     {
         try {
 
-            $this->templateSectionInterface->destroy($id);
+            $this->templateSectionRepository->destroy($id);
             return $this->successResponse(null, 'Template section deleted successfully');
 
         } catch (\Exception $e) {
@@ -109,7 +107,7 @@ class TemplateSectionController extends Controller
     {
         try {
 
-            $sections = $this->templateSectionInterface->getTemplateSections($templateId);
+            $sections = $this->templateSectionRepository->getTemplateSections($templateId);
             return $this->successResponse($sections, 'Template sections retrieved successfully');
 
         } catch (\Exception $e) {

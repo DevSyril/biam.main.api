@@ -13,15 +13,17 @@ return new class extends Migration
     {
         Schema::create('template_sections', function (Blueprint $table) {
             $table->uuid('id')->default('uuid_generate_v4()')->primary();
-            $table->uuid('template_id') ;
+            $table->uuid('template_id');
             $table->string('title');
             $table->text('description')->nullable();
             $table->integer('section_order');
             $table->string('legal_slug', 100)->nullable();
+            $table->text('legal_notice')->nullable();
             $table->boolean('is_required')->nullable()->default(false);
             $table->boolean('is_repeatable')->nullable()->default(false);
             $table->timestampTz('created_at')->nullable()->useCurrent();
             $table->timestampTz('updated_at')->nullable()->useCurrent();
+            $table->jsonb('content');
 
             $table->unique(['template_id', 'section_order'], 'template_sections_template_id_section_order_key');
         });

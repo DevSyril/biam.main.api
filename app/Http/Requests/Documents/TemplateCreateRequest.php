@@ -24,9 +24,6 @@ class TemplateCreateRequest extends FormRequest
         return [
             'title' => 'required|string|max:255',
             'description' => 'string|max:1000|nullable',
-            'category' => 'required|string|max:100',
-            'type' => 'required|string|max:100',
-            'content' => '',
             'version' => 'int|nullable',
             'is_premium' => 'bool|nullable',
             'is_active' => 'bool|nullable',
@@ -46,12 +43,6 @@ class TemplateCreateRequest extends FormRequest
             'title.max' => 'Le titre ne doit pas dépasser 255 caractères.',
             'description.string' => 'La description doit être une chaîne de caractères',
             'description.max' => 'La description ne doit pas dépasser 1000 caractères.',
-            'category.required' => 'La catégorie est requise.',
-            'category.string' => 'La catégorie doit être une chaîne de caractères',
-            'category.max' => 'La catégorie ne doit pas dépasser 100 caractères.',
-            'type.required' => 'Le type est requis.',
-            'type.string' => 'Le type doit être une chaîne de caractères',
-            'type.max' => 'Le type ne doit pas dépasser 100 caractères.',
             'content.required' => 'Le contenu est requis.',
             'version.int' => 'La version doit être un nombre entier.',
             'is_premium.bool' => 'Le statut premium doit être un booléen.',
@@ -59,8 +50,8 @@ class TemplateCreateRequest extends FormRequest
             'is_public.bool' => 'Le statut public doit être un booléen.',
             'author_id.uuid' => 'L\'ID de l\'auteur doit être une UUID.',
             'language.string' => 'La langue doit être une chaîne de caractères.',
-            'estimated_time_minutes.int' => 'Le temps estimé en minutes doit être un nombre entier.',
-            'document_id.required' => 'L\'ID du document est requis.',
+            'estimated_time_minutes.int' => 'Le temps est5imé en minutes doit être un nombre entier.',
+            'document_id.required' => 'Veuillez sélectionner un document.',
             'document_id.uuid' => 'L\'ID du document doit être une UUID.'
         ];
     }

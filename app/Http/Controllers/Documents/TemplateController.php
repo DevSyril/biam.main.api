@@ -12,16 +12,13 @@ use Illuminate\Http\Request;
 
 class TemplateController extends Controller
 {
-    private TemplateInterface $templateInterface;
     private TemplateRepository $templateRepository;
 
     use JsonTrait;
 
     public function __construct(
-        TemplateInterface $templateInterface,
         TemplateRepository $templateRepository
     ) {
-        $this->templateInterface = $templateInterface;
         $this->templateRepository = $templateRepository;
     }
 
@@ -47,9 +44,6 @@ class TemplateController extends Controller
         $data = array_filter($request->all(), function ($value) {
             return $value !== null && $value !== '';
         });
-
-        if (isset($data['content']))
-            $data['content'] = json_encode($data['content']);
 
         try {
 
@@ -92,7 +86,7 @@ class TemplateController extends Controller
         }
 
         try {
-            $template = $this->templateInterface->update($id, $data);
+            $template = $this->templateRepository->update($id, $data);
 
             return $this->successResponse(new TemplateResources($template), 'Template mis à jour avec succès.', 200);
 
@@ -107,7 +101,7 @@ class TemplateController extends Controller
     public function destroy(string $id)
     {
         try {
-            $this->templateInterface->destroy($id);
+            $this->templateRepository->destroy($id);
 
             return $this->deleted('Template supprimé avec succès.');
 
