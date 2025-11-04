@@ -42,7 +42,6 @@ class Template extends Model
 	public $incrementing = false;
 
 	protected $casts = [
-		'id' => 'string',
 		'version' => 'int',
 		'is_premium' => 'bool',
 		'is_active' => 'bool',
@@ -80,5 +79,16 @@ class Template extends Model
 	public function template_sections()
 	{
 		return $this->hasMany(TemplateSection::class);
+	}
+
+	public function header()
+	{
+		return $this->hasOne(HeaderFooter::class)->where('type', 'header');
+	}
+
+
+	public function footer()
+	{
+		return $this->hasOne(HeaderFooter::class)->where('type', 'footer');
 	}
 }

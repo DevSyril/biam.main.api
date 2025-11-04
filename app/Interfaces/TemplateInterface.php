@@ -15,5 +15,7 @@ interface TemplateInterface
     public function destroy(string $id);
 
     public function getDocumentTemplates(string $documentId);
+    
+    public function setHeaderFooter(array $data);
 
 }

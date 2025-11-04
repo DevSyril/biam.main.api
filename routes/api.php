@@ -53,8 +53,9 @@ Route::prefix('app')->group(function () {
     Route::post('fields/template-fields/create', [TemplateFieldController::class, 'store']);
     Route::post('fields/template-fields/update/{id}', [TemplateFieldController::class, 'update']);
     Route::delete('fields/template-fields/delete/{id}', [TemplateFieldController::class, 'destroy']);
-
-
+    
+    
+    Route::post('templates/set-header-footer', [TemplateController::class, 'setHeaderFooter']);
 
 });
 
@@ -87,4 +88,5 @@ Route::prefix('legal')->group(function () {
     Route::post('jurisprudences/create', [JurisprudenceController::class, 'store']);
     Route::post('jurisprudences/update/{id}', [JurisprudenceController::class, 'update']);
     Route::delete('jurisprudences/delete/{id}', [JurisprudenceController::class, 'destroy']);
+
 });

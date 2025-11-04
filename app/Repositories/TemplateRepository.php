@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Interfaces\TemplateInterface;
 use App\Models\AvailableDocument;
+use App\Models\HeaderFooter;
 use App\Models\LegalSubject;
 use App\Models\Template;
 
@@ -32,6 +33,8 @@ class TemplateRepository implements TemplateInterface
     {
         $template = Template::findOrFail($id);
         $template->load('template_sections');
+        $template->load('header');
+        $template->load('footer');
         // $template->template_sections->load('template_fields');
         // $template->template_sections->each(function ($section) {
         //     $section->template_fields->load('form_field');
@@ -89,6 +92,18 @@ class TemplateRepository implements TemplateInterface
             });
         });
         return $legal_articles;
+    }
+
+
+    public function setHeaderFooter(array $data)
+    {
+
+        $headerFooter = HeaderFooter::updateOrCreate(
+            $data,
+            ['template_id' => $data['template_id'], 'type' => $data['type']]
+        );
+
+        return $headerFooter;
     }
 
 

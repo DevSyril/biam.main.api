@@ -128,4 +128,33 @@ class TemplateController extends Controller
         }
     }
 
+
+    public function setHeaderFooter(Request $request)
+    {
+        $data = array_filter($request->all(), function ($value) {
+            return $value !== null && $value !== '';
+        });
+
+        try {
+
+            if ($request->hasFile('header_logo')) {
+                $logoPath = $request->file('header_logo')->store('documents/headers/logos', 'public');
+                $data['logo_url'] = env('APP_URL') . '/storage/' . $logoPath;
+                $data['has_logo'] = true;
+            } else {
+                $data['has_logo'] = false;
+            }
+            unset($data["header_logo"]);
+
+            $headerFooter = $this->templateRepository->setHeaderFooter($data);
+
+            return $this->successResponse($headerFooter, $data['type'] . ' associé avec succès.', 200);
+
+        } catch (\Throwable $th) {
+
+            return $this->failed($th->getMessage(), 500);
+
+        }
+    }
+
 }
