@@ -96,14 +96,15 @@ class TemplateRepository implements TemplateInterface
 
 
     public function setHeaderFooter(array $data)
-    {
-
-        $headerFooter = HeaderFooter::updateOrCreate(
-            $data,
-            ['template_id' => $data['template_id'], 'type' => $data['type']]
+    {   
+        return HeaderFooter::updateOrCreate(
+            [
+                'template_id' => $data['template_id'],
+                'type' => $data['type']
+            ],
+            $data
         );
 
-        return $headerFooter;
     }
 
 

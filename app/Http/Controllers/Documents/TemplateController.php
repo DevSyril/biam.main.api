@@ -8,6 +8,7 @@ use App\Http\Resources\Documents\TemplateResources;
 use App\Interfaces\TemplateInterface;
 use App\Repositories\TemplateRepository;
 use App\Traits\JsonTrait;
+use DB;
 use Illuminate\Http\Request;
 
 class TemplateController extends Controller
@@ -135,8 +136,9 @@ class TemplateController extends Controller
             return $value !== null && $value !== '';
         });
 
+            
         try {
-
+            
             if ($request->hasFile('header_logo')) {
                 $logoPath = $request->file('header_logo')->store('documents/headers/logos', 'public');
                 $data['logo_url'] = env('APP_URL') . '/storage/' . $logoPath;
@@ -144,9 +146,14 @@ class TemplateController extends Controller
             } else {
                 $data['has_logo'] = false;
             }
+            
             unset($data["header_logo"]);
-
+            
+            DB::beginTransaction();
+            
             $headerFooter = $this->templateRepository->setHeaderFooter($data);
+
+            DB::commit();
 
             return $this->successResponse($headerFooter, $data['type'] . ' associé avec succès.', 200);
 

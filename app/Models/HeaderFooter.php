@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * Class HeaderFooter
  * 
- * @property int $id
+ * @property uuid $id
  * @property uuid $template_id
  * @property string $type
  * @property bool $is_active
@@ -40,12 +40,11 @@ use Illuminate\Database\Eloquent\Model;
 class HeaderFooter extends Model
 {
 	use HasUuidPrimaryKey;
-
+	protected $table = 'header_footers';
 	public $incrementing = false;
 
-	protected $table = 'header_footers';
-
 	protected $casts = [
+		'id' => 'string',
 		'template_id' => 'string',
 		'is_active' => 'bool',
 		'show_on_first_page' => 'bool',
