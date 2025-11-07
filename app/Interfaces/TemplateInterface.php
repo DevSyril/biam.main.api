@@ -2,6 +2,8 @@
 
 namespace App\Interfaces;
 
+use Illuminate\Http\UploadedFile;
+
 interface TemplateInterface
 {
     public function index(int $items = 10);
@@ -17,5 +19,7 @@ interface TemplateInterface
     public function getDocumentTemplates(string $documentId);
     
     public function setHeaderFooter(array $data);
+
+    public function extractTemplateContent(UploadedFile $file);
 
 }

@@ -56,6 +56,7 @@ Route::prefix('app')->group(function () {
     
     
     Route::post('templates/set-header-footer', [TemplateController::class, 'setHeaderFooter']);
+    Route::post('templates/extract-from-template', [TemplateController::class, 'extractTemplateContent']);
 
 });
 

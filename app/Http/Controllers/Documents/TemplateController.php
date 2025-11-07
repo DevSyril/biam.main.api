@@ -164,4 +164,23 @@ class TemplateController extends Controller
         }
     }
 
+
+
+    public function extractTemplateContent(Request $request)
+    {
+        $data = $request->file('template_file');
+
+        try {
+
+            $content = $this->templateRepository->extractTemplateContent($data);
+
+            return $this->successResponse($content, 'Contenu du template extrait avec succès.', 200);
+
+        } catch (\Throwable $th) {
+
+            return $this->failed($th->getMessage(), 500);
+
+        }
+    }
+
 }

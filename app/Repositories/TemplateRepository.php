@@ -7,6 +7,8 @@ use App\Models\AvailableDocument;
 use App\Models\HeaderFooter;
 use App\Models\LegalSubject;
 use App\Models\Template;
+use Illuminate\Http\UploadedFile;
+use Spatie\PdfToText\Pdf;
 
 class TemplateRepository implements TemplateInterface
 {
@@ -96,7 +98,7 @@ class TemplateRepository implements TemplateInterface
 
 
     public function setHeaderFooter(array $data)
-    {   
+    {
         return HeaderFooter::updateOrCreate(
             [
                 'template_id' => $data['template_id'],
@@ -105,6 +107,22 @@ class TemplateRepository implements TemplateInterface
             $data
         );
 
+    }
+
+
+    public function extractTemplateContent(UploadedFile $file)
+    {
+        $filePath = $file->store('temp/templates', 'public');
+
+        $file_path = env('APP_URL') . '/storage/' . $filePath;
+
+        $text = (new Pdf())
+            ->setPdf($file_path)
+            // ->setOptions(['layout', 'r 96'])
+            ->text();
+
+        
+        return $text;
     }
 
 
